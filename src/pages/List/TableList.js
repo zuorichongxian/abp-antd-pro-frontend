@@ -1,14 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
+import { DownOutlined, PlusOutlined, UpOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import {
   Row,
   Col,
   Card,
-  Form,
   Input,
   Select,
-  Icon,
   Button,
   Dropdown,
   Menu,
@@ -31,14 +32,14 @@ const { Step } = Steps;
 const { TextArea } = Input;
 const { Option } = Select;
 const RadioGroup = Radio.Group;
-const getValue = obj =>
+const getValue = (obj) =>
   Object.keys(obj)
-    .map(key => obj[key])
+    .map((key) => obj[key])
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 
-const CreateForm = Form.create()(props => {
+const CreateForm = Form.create()((props) => {
   const { modalVisible, form, handleAdd, handleModalVisible } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
@@ -95,7 +96,7 @@ class UpdateForm extends PureComponent {
     };
   }
 
-  handleNext = currentStep => {
+  handleNext = (currentStep) => {
     const { form, handleUpdate } = this.props;
     const { formVals: oldValue } = this.state;
     form.validateFields((err, fieldsValue) => {
@@ -111,7 +112,7 @@ class UpdateForm extends PureComponent {
           } else {
             handleUpdate(formVals);
           }
-        }
+        },
       );
     });
   };
@@ -141,7 +142,7 @@ class UpdateForm extends PureComponent {
             <Select style={{ width: '100%' }}>
               <Option value="0">表一</Option>
               <Option value="1">表二</Option>
-            </Select>
+            </Select>,
           )}
         </FormItem>,
         <FormItem key="template" {...this.formLayout} label="规则模板">
@@ -151,7 +152,7 @@ class UpdateForm extends PureComponent {
             <Select style={{ width: '100%' }}>
               <Option value="0">规则模板一</Option>
               <Option value="1">规则模板二</Option>
-            </Select>
+            </Select>,
           )}
         </FormItem>,
         <FormItem key="type" {...this.formLayout} label="规则类型">
@@ -161,7 +162,7 @@ class UpdateForm extends PureComponent {
             <RadioGroup>
               <Radio value="0">强</Radio>
               <Radio value="1">弱</Radio>
-            </RadioGroup>
+            </RadioGroup>,
           )}
         </FormItem>,
       ];
@@ -177,7 +178,7 @@ class UpdateForm extends PureComponent {
               showTime
               format="YYYY-MM-DD HH:mm:ss"
               placeholder="选择开始时间"
-            />
+            />,
           )}
         </FormItem>,
         <FormItem key="frequency" {...this.formLayout} label="调度周期">
@@ -187,7 +188,7 @@ class UpdateForm extends PureComponent {
             <Select style={{ width: '100%' }}>
               <Option value="month">月</Option>
               <Option value="week">周</Option>
-            </Select>
+            </Select>,
           )}
         </FormItem>,
       ];
@@ -208,7 +209,7 @@ class UpdateForm extends PureComponent {
     ];
   };
 
-  renderFooter = currentStep => {
+  renderFooter = (currentStep) => {
     const { handleUpdateModalVisible, values } = this.props;
     if (currentStep === 1) {
       return [
@@ -302,7 +303,7 @@ class TableList extends PureComponent {
       dataIndex: 'callNo',
       sorter: true,
       align: 'right',
-      render: val => `${val} 万`,
+      render: (val) => `${val} 万`,
       // mark to display a total number
       needTotal: true,
     },
@@ -335,7 +336,7 @@ class TableList extends PureComponent {
       title: '上次调度时间',
       dataIndex: 'updatedAt',
       sorter: true,
-      render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
+      render: (val) => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
     },
     {
       title: '操作',
@@ -401,7 +402,7 @@ class TableList extends PureComponent {
     });
   };
 
-  handleMenuClick = e => {
+  handleMenuClick = (e) => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
 
@@ -411,7 +412,7 @@ class TableList extends PureComponent {
         dispatch({
           type: 'rule/remove',
           payload: {
-            key: selectedRows.map(row => row.key),
+            key: selectedRows.map((row) => row.key),
           },
           callback: () => {
             this.setState({
@@ -425,13 +426,13 @@ class TableList extends PureComponent {
     }
   };
 
-  handleSelectRows = rows => {
+  handleSelectRows = (rows) => {
     this.setState({
       selectedRows: rows,
     });
   };
 
-  handleSearch = e => {
+  handleSearch = (e) => {
     e.preventDefault();
 
     const { dispatch, form } = this.props;
@@ -455,7 +456,7 @@ class TableList extends PureComponent {
     });
   };
 
-  handleModalVisible = flag => {
+  handleModalVisible = (flag) => {
     this.setState({
       modalVisible: !!flag,
     });
@@ -468,7 +469,7 @@ class TableList extends PureComponent {
     });
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'rule/add',
@@ -481,7 +482,7 @@ class TableList extends PureComponent {
     this.handleModalVisible();
   };
 
-  handleUpdate = fields => {
+  handleUpdate = (fields) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'rule/update',
@@ -514,7 +515,7 @@ class TableList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -527,7 +528,7 @@ class TableList extends PureComponent {
                 重置
               </Button>
               <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                展开 <Icon type="down" />
+                展开 <DownOutlined />
               </a>
             </span>
           </Col>
@@ -554,7 +555,7 @@ class TableList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -568,7 +569,7 @@ class TableList extends PureComponent {
           <Col md={8} sm={24}>
             <FormItem label="更新日期">
               {getFieldDecorator('date')(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
+                <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />,
               )}
             </FormItem>
           </Col>
@@ -578,7 +579,7 @@ class TableList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -588,7 +589,7 @@ class TableList extends PureComponent {
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
           </Col>
@@ -602,7 +603,7 @@ class TableList extends PureComponent {
               重置
             </Button>
             <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-              收起 <Icon type="up" />
+              收起 <UpOutlined />
             </a>
           </div>
         </div>
@@ -642,7 +643,11 @@ class TableList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+              <Button
+                icon={<PlusOutlined />}
+                type="primary"
+                onClick={() => this.handleModalVisible(true)}
+              >
                 新建
               </Button>
               {selectedRows.length > 0 && (
@@ -650,7 +655,7 @@ class TableList extends PureComponent {
                   <Button>批量操作</Button>
                   <Dropdown overlay={menu}>
                     <Button>
-                      更多操作 <Icon type="down" />
+                      更多操作 <DownOutlined />
                     </Button>
                   </Dropdown>
                 </span>

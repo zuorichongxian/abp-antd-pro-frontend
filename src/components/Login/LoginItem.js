@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Row, Col } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Row, Col } from 'antd';
 import omit from 'omit.js';
 import styles from './index.less';
 import ItemMap from './map';
@@ -126,11 +128,11 @@ class WrapFormItem extends Component {
 }
 
 const LoginItem = {};
-Object.keys(ItemMap).forEach(key => {
+Object.keys(ItemMap).forEach((key) => {
   const item = ItemMap[key];
-  LoginItem[key] = props => (
+  LoginItem[key] = (props) => (
     <LoginContext.Consumer>
-      {context => (
+      {(context) => (
         <WrapFormItem
           customprops={item.props}
           rules={item.rules}

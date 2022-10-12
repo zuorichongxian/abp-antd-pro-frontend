@@ -109,6 +109,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/max/access
    */
   access: {},
+
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   /**

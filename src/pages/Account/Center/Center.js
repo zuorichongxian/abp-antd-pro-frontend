@@ -1,8 +1,9 @@
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
-import { Avatar, Card, Col, Divider, Icon, Input, Row, Spin, Tag } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Avatar, Card, Col, Divider, Input, Row, Spin, Tag } from 'antd';
 import { connect } from 'dva';
 import { PureComponent } from 'react';
-import {Link} from 'umi';
+import { Link } from 'umi';
 import styles from './Center.less';
 
 @connect(({ loading, global, project }) => ({
@@ -35,7 +36,7 @@ class Center extends PureComponent {
     });
   }
 
-  onTabChange = key => {
+  onTabChange = (key) => {
     const { match } = this.props;
     switch (key) {
       case 'articles':
@@ -56,11 +57,11 @@ class Center extends PureComponent {
     this.setState({ inputVisible: true }, () => this.input.focus());
   };
 
-  saveInputRef = input => {
+  saveInputRef = (input) => {
     this.input = input;
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({ inputValue: e.target.value });
   };
 
@@ -68,7 +69,7 @@ class Center extends PureComponent {
     const { state } = this;
     const { inputValue } = state;
     let { newTags } = state;
-    if (inputValue && newTags.filter(tag => tag.label === inputValue).length === 0) {
+    if (inputValue && newTags.filter((tag) => tag.label === inputValue).length === 0) {
       newTags = [...newTags, { key: `new-${newTags.length}`, label: inputValue }];
     }
     this.setState({
@@ -126,7 +127,14 @@ class Center extends PureComponent {
               {currentUser && Object.keys(currentUser).length ? (
                 <div>
                   <div className={styles.avatarHolder}>
-                    <img alt="" src={currentUser.profilePictureId != null ? currentUser.profilePictureId : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'} />
+                    <img
+                      alt=""
+                      src={
+                        currentUser.profilePictureId != null
+                          ? currentUser.profilePictureId
+                          : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+                      }
+                    />
                     <div className={styles.name}>{currentUser.name}</div>
                     <div>{currentUser.emailAddress}</div>
                   </div>
@@ -141,8 +149,7 @@ class Center extends PureComponent {
                     </p>
                     <p>
                       <i className={styles.address} />
-                      河南省
-                      郑州
+                      河南省 郑州
                     </p>
                   </div>
                   <Divider dashed />
@@ -168,7 +175,7 @@ class Center extends PureComponent {
                         onClick={this.showInput}
                         style={{ background: '#fff', borderStyle: 'dashed' }}
                       >
-                        <Icon type="plus" />
+                        <PlusOutlined />
                       </Tag>
                     )}
                   </div>
@@ -177,7 +184,7 @@ class Center extends PureComponent {
                     <div className={styles.teamTitle}>团队</div>
                     <Spin spinning={projectLoading}>
                       <Row gutter={36}>
-                        {notice.map(item => (
+                        {notice.map((item) => (
                           <Col key={item.id} lg={24} xl={12}>
                             <Link to={item.href}>
                               <Avatar size="small" src={item.logo} />

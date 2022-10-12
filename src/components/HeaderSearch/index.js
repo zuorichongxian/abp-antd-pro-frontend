@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Icon, AutoComplete } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import Debounce from 'lodash-decorators/debounce';
 import Bind from 'lodash-decorators/bind';
@@ -50,7 +51,7 @@ export default class HeaderSearch extends PureComponent {
     clearTimeout(this.timeout);
   }
 
-  onKeyDown = e => {
+  onKeyDown = (e) => {
     if (e.key === 'Enter') {
       const { onPressEnter } = this.props;
       const { value } = this.state;
@@ -60,7 +61,7 @@ export default class HeaderSearch extends PureComponent {
     }
   };
 
-  onChange = value => {
+  onChange = (value) => {
     const { onChange } = this.props;
     this.setState({ value });
     if (onChange) {
@@ -116,7 +117,7 @@ export default class HeaderSearch extends PureComponent {
           }
         }}
       >
-        <Icon type="search" key="Icon" />
+        <SearchOutlined key="Icon" />
         <AutoComplete
           key="AutoComplete"
           {...restProps}
@@ -125,7 +126,7 @@ export default class HeaderSearch extends PureComponent {
           onChange={this.onChange}
         >
           <Input
-            ref={node => {
+            ref={(node) => {
               this.input = node;
             }}
             aria-label={placeholder}

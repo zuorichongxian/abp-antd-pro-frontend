@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Tabs, Badge, Spin } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
+import { Tabs, Badge, Spin } from 'antd';
 import classNames from 'classnames';
 import HeaderDropdown from '../HeaderDropdown';
 import List from './NoticeList';
@@ -40,7 +41,7 @@ export default class NoticeIcon extends PureComponent {
     }
   };
 
-  onClear = name => {
+  onClear = (name) => {
     const { onClear, clearClose } = this.props;
     onClear(name);
     if (clearClose) {
@@ -48,7 +49,7 @@ export default class NoticeIcon extends PureComponent {
     }
   };
 
-  onTabChange = tabType => {
+  onTabChange = (tabType) => {
     const { onTabChange } = this.props;
     onTabChange(tabType);
   };
@@ -64,7 +65,7 @@ export default class NoticeIcon extends PureComponent {
     if (!children) {
       return null;
     }
-    const panes = React.Children.map(children, child => {
+    const panes = React.Children.map(children, (child) => {
       const {
         list,
         title,
@@ -92,8 +93,8 @@ export default class NoticeIcon extends PureComponent {
             loading={tabLoading}
             locale={locale}
             onClear={() => this.onClear(name)}
-            onClick={item => this.onItemClick(item, child.props)}
-            onLoadMore={event => this.onLoadMore(child.props, event)}
+            onClick={(item) => this.onItemClick(item, child.props)}
+            onLoadMore={(event) => this.onLoadMore(child.props, event)}
             scrollToLoad={scrollToLoad}
             showClear={showClear}
             skeletonCount={skeletonCount}
@@ -115,7 +116,7 @@ export default class NoticeIcon extends PureComponent {
     );
   }
 
-  handleVisibleChange = visible => {
+  handleVisibleChange = (visible) => {
     const { onPopupVisibleChange } = this.props;
     this.setState({ visible });
     onPopupVisibleChange(visible);
@@ -126,7 +127,7 @@ export default class NoticeIcon extends PureComponent {
     const { visible } = this.state;
     const noticeButtonClass = classNames(className, styles.noticeButton);
     const notificationBox = this.getNotificationBox();
-    const NoticeBellIcon = bell || <Icon type="bell" className={styles.icon} />;
+    const NoticeBellIcon = bell || <BellOutlined className={styles.icon} />;
     const trigger = (
       <span className={classNames(noticeButtonClass, { opened: visible })}>
         <Badge count={count} style={{ boxShadow: 'none' }} className={styles.badge}>
@@ -150,7 +151,7 @@ export default class NoticeIcon extends PureComponent {
         visible={visible}
         onVisibleChange={this.handleVisibleChange}
         {...popoverProps}
-        ref={node => (this.popover = ReactDOM.findDOMNode(node))} // eslint-disable-line
+        ref={(node) => (this.popover = ReactDOM.findDOMNode(node))} // eslint-disable-line
       >
         {trigger}
       </HeaderDropdown>

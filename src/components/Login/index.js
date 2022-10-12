@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Tabs } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Tabs } from 'antd';
 import classNames from 'classnames';
 import LoginItem from './LoginItem';
 import LoginTab from './LoginTab';
@@ -32,7 +34,7 @@ class Login extends Component {
     };
   }
 
-  onSwitch = type => {
+  onSwitch = (type) => {
     this.setState({
       type,
     });
@@ -45,19 +47,19 @@ class Login extends Component {
     const { form } = this.props;
     return {
       tabUtil: {
-        addTab: id => {
+        addTab: (id) => {
           this.setState({
             tabs: [...tabs, id],
           });
         },
-        removeTab: id => {
+        removeTab: (id) => {
           this.setState({
-            tabs: tabs.filter(currentId => currentId !== id),
+            tabs: tabs.filter((currentId) => currentId !== id),
           });
         },
       },
       form,
-      updateActive: activeItem => {
+      updateActive: (activeItem) => {
         const { type, active } = this.state;
         if (active[type]) {
           active[type].push(activeItem);
@@ -71,7 +73,7 @@ class Login extends Component {
     };
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { active, type } = this.state;
     const { form, onSubmit } = this.props;
@@ -86,7 +88,7 @@ class Login extends Component {
     const { type, tabs } = this.state;
     const TabChildren = [];
     const otherChildren = [];
-    React.Children.forEach(children, item => {
+    React.Children.forEach(children, (item) => {
       if (!item) {
         return;
       }
@@ -125,7 +127,7 @@ class Login extends Component {
 
 Login.Tab = LoginTab;
 Login.Submit = LoginSubmit;
-Object.keys(LoginItem).forEach(item => {
+Object.keys(LoginItem).forEach((item) => {
   Login[item] = LoginItem[item];
 });
 

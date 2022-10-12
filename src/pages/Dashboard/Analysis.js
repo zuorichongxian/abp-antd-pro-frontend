@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Icon, Menu, Dropdown } from 'antd';
+import { EllipsisOutlined } from '@ant-design/icons';
+import { Row, Col, Menu, Dropdown } from 'antd';
 
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import { getTimeDistance } from '@/utils/utils';
@@ -43,19 +44,19 @@ class Analysis extends Component {
     clearTimeout(this.timeoutId);
   }
 
-  handleChangeSalesType = e => {
+  handleChangeSalesType = (e) => {
     this.setState({
       salesType: e.target.value,
     });
   };
 
-  handleTabChange = key => {
+  handleTabChange = (key) => {
     this.setState({
       currentTabKey: key,
     });
   };
 
-  handleRangePickerChange = rangePickerValue => {
+  handleRangePickerChange = (rangePickerValue) => {
     const { dispatch } = this.props;
     this.setState({
       rangePickerValue,
@@ -66,7 +67,7 @@ class Analysis extends Component {
     });
   };
 
-  selectDate = type => {
+  selectDate = (type) => {
     const { dispatch } = this.props;
     this.setState({
       rangePickerValue: getTimeDistance(type),
@@ -77,7 +78,7 @@ class Analysis extends Component {
     });
   };
 
-  isActive = type => {
+  isActive = (type) => {
     const { rangePickerValue } = this.state;
     const value = getTimeDistance(type);
     if (!rangePickerValue[0] || !rangePickerValue[1]) {
@@ -122,7 +123,7 @@ class Analysis extends Component {
     const dropdownGroup = (
       <span className={styles.iconGroup}>
         <Dropdown overlay={menu} placement="bottomRight">
-          <Icon type="ellipsis" />
+          <EllipsisOutlined />
         </Dropdown>
       </span>
     );

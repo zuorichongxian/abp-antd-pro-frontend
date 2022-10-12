@@ -1,4 +1,7 @@
-import { Button, Form, Input, Select, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, Select, Upload } from 'antd';
 import { connect } from 'dva';
 import { Component, Fragment } from 'react';
 import { formatMessage, FormattedMessage } from 'umi';
@@ -21,7 +24,7 @@ const AvatarView = ({ avatar }) => (
     </div>
     <Upload fileList={[]}>
       <div className={styles.button_view}>
-        <Button icon="upload">
+        <Button icon={<UploadOutlined />}>
           <FormattedMessage id="app.settings.basic.change-avatar" defaultMessage="Change avatar" />
         </Button>
       </div>
@@ -62,7 +65,7 @@ class BaseView extends Component {
 
   setBaseInfo = () => {
     const { currentUser, form } = this.props;
-    Object.keys(form.getFieldsValue()).forEach(key => {
+    Object.keys(form.getFieldsValue()).forEach((key) => {
       const obj = {};
       obj[key] = currentUser[key] || null;
       form.setFieldsValue(obj);
@@ -78,7 +81,7 @@ class BaseView extends Component {
     return url;
   }
 
-  getViewDom = ref => {
+  getViewDom = (ref) => {
     this.view = ref;
   };
 
@@ -122,7 +125,7 @@ class BaseView extends Component {
                 <Input.TextArea
                   placeholder={formatMessage({ id: 'app.settings.basic.profile-placeholder' })}
                   rows={4}
-                />
+                />,
               )}
             </FormItem>
             <FormItem label={formatMessage({ id: 'app.settings.basic.country' })}>
@@ -136,7 +139,7 @@ class BaseView extends Component {
               })(
                 <Select style={{ maxWidth: 220 }}>
                   <Option value="China">中国</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
             <FormItem label={formatMessage({ id: 'app.settings.basic.geographic' })}>

@@ -1,4 +1,5 @@
-import { Icon, Menu } from 'antd';
+import { GlobalOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import classNames from 'classnames';
 import { PureComponent } from 'react';
 import { formatMessage, getLocale, setLocale } from 'umi';
@@ -28,7 +29,7 @@ export default class SelectLang extends PureComponent {
     };
     const langMenu = (
       <Menu className={styles.menu} selectedKeys={[selectedLang]} onClick={this.changeLang}>
-        {locales.map(locale => (
+        {locales.map((locale) => (
           <Menu.Item key={locale}>
             <span role="img" aria-label={languageLabels[locale]}>
               {languageIcons[locale]}
@@ -41,7 +42,7 @@ export default class SelectLang extends PureComponent {
     return (
       <HeaderDropdown overlay={langMenu} placement="bottomRight">
         <span className={classNames(styles.dropDown, className)}>
-          <Icon type="global" title={formatMessage({ id: 'navBar.lang' })} />
+          <GlobalOutlined title={formatMessage({ id: 'navBar.lang' })} />
         </span>
       </HeaderDropdown>
     );

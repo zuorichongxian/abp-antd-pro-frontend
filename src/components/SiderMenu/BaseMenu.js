@@ -1,9 +1,10 @@
 import IconFont from '@/components/IconFont';
 import { isUrl } from '@/utils/utils';
-import { Icon, Menu } from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Menu } from 'antd';
 import classNames from 'classnames';
 import { PureComponent } from 'react';
-import {Link} from 'umi';
+import { Link } from 'umi';
 import { urlToList } from '../_utils/pathTools';
 import styles from './index.less';
 import { getMenuMatches } from './SiderMenuUtils';
@@ -14,15 +15,15 @@ const { SubMenu } = Menu;
 //   icon: 'setting',
 //   icon: 'http://demo.com/icon.png',
 //   icon: <Icon type="setting" />,
-const getIcon = icon => {
-  if(typeof icon === 'string' && icon.match("precise")){
-    return <IconFont type={icon} />
+const getIcon = (icon) => {
+  if (typeof icon === 'string' && icon.match('precise')) {
+    return <IconFont type={icon} />;
   }
   if (typeof icon === 'string' && isUrl(icon)) {
     return <img src={icon} alt="icon" className={styles.icon} />;
   }
   if (typeof icon === 'string') {
-    return <Icon type={icon} />;
+    return <LegacyIcon type={icon} />;
   }
   return icon;
 };
@@ -37,23 +38,23 @@ export default class BaseMenu extends PureComponent {
       return [];
     }
     return menusData
-      .filter(item => item.name && !item.hideInMenu)
-      .map(item => this.getSubMenuOrItem(item, parent))
-      .filter(item => item);
+      .filter((item) => item.name && !item.hideInMenu)
+      .map((item) => this.getSubMenuOrItem(item, parent))
+      .filter((item) => item);
   };
 
   // Get the currently selected menu
-  getSelectedMenuKeys = pathname => {
+  getSelectedMenuKeys = (pathname) => {
     const { flatMenuKeys } = this.props;
-    return urlToList(pathname).map(itemPath => getMenuMatches(flatMenuKeys, itemPath).pop());
+    return urlToList(pathname).map((itemPath) => getMenuMatches(flatMenuKeys, itemPath).pop());
   };
 
   /**
    * get SubMenu or Item
    */
-  getSubMenuOrItem = item => {
+  getSubMenuOrItem = (item) => {
     // doc: add hideChildrenInMenu
-    if (item.children && !item.hideChildrenInMenu && item.children.some(child => child.name)) {
+    if (item.children && !item.hideChildrenInMenu && item.children.some((child) => child.name)) {
       const { name } = item;
       return (
         <SubMenu
@@ -81,7 +82,7 @@ export default class BaseMenu extends PureComponent {
    * Judge whether it is http link.return a or Link
    * @memberof SiderMenu
    */
-  getMenuItemPath = item => {
+  getMenuItemPath = (item) => {
     const { name } = item;
     const itemPath = this.conversionPath(item.path);
     const icon = getIcon(item.icon);
@@ -115,7 +116,7 @@ export default class BaseMenu extends PureComponent {
     );
   };
 
-  conversionPath = path => {
+  conversionPath = (path) => {
     if (path && path.indexOf('http') === 0) {
       return path;
     }

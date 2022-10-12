@@ -1,6 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import { connect } from 'dva';
-import { Tree, Icon, notification, Modal, Button, Row, Col, Card, Form, Input, message, Menu } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Tree, notification, Modal, Button, Row, Col, Card, Input, message, Menu } from 'antd';
 
 const FormItem = Form.Item;
 @Form.create()
@@ -8,8 +10,7 @@ const FormItem = Form.Item;
   organization,
 }))
 export default class CreateOrUpdateForm extends PureComponent {
-
-  handleAdd = fields => {
+  handleAdd = (fields) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'organization/createOrganizationUnit',
@@ -17,7 +18,7 @@ export default class CreateOrUpdateForm extends PureComponent {
     });
   };
 
-  handleChildAdd = fields => {
+  handleChildAdd = (fields) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'organization/createOrganizationUnit',
@@ -25,7 +26,7 @@ export default class CreateOrUpdateForm extends PureComponent {
     });
   };
 
-  handleUpdate = fields => {
+  handleUpdate = (fields) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'organization/updateOrganizationUnit',
@@ -34,34 +35,31 @@ export default class CreateOrUpdateForm extends PureComponent {
   };
 
   render() {
-
-    const { modalType, modalVisible, handleModalVisible, formVals, form, handleAdd, handleUpdate } = this.props;
+    const { modalType, modalVisible, handleModalVisible, formVals, form, handleAdd, handleUpdate } =
+      this.props;
 
     const okHandle = () => {
       form.validateFields((err, fieldsValue) => {
         if (err) return;
         form.resetFields();
-        if (modalType === null)
-          this.handleAdd(fieldsValue);
-        else if (modalType === "add")
-          this.handleChildAdd(fieldsValue);
-        else if (modalType === "update")
-          this.handleUpdate(fieldsValue);
+        if (modalType === null) this.handleAdd(fieldsValue);
+        else if (modalType === 'add') this.handleChildAdd(fieldsValue);
+        else if (modalType === 'update') this.handleUpdate(fieldsValue);
 
-        handleModalVisible()
+        handleModalVisible();
       });
     };
 
     return (
       <Modal
         destroyOnClose
-        title={modalType == "update" ? "修改: " + formVals.displayName : "新建组织机构"}
+        title={modalType == 'update' ? '修改: ' + formVals.displayName : '新建组织机构'}
         okText="保存"
         visible={modalVisible}
         onOk={okHandle}
         onCancel={() => handleModalVisible()}
       >
-        <FormItem key="id" style={{ display: "none" }}>
+        <FormItem key="id" style={{ display: 'none' }}>
           {form.getFieldDecorator('id', {
             initialValue: formVals.id,
           })(<Input />)}
@@ -69,10 +67,10 @@ export default class CreateOrUpdateForm extends PureComponent {
         <FormItem key="displayName" labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="名称">
           {form.getFieldDecorator('displayName', {
             rules: [{ required: true, message: '请输入组织机的名称！' }],
-            initialValue: modalType == "add" ? "" : formVals.displayName,
+            initialValue: modalType == 'add' ? '' : formVals.displayName,
           })(<Input placeholder="请输入" />)}
         </FormItem>
-        <FormItem key="parentId" style={{ display: "none" }}>
+        <FormItem key="parentId" style={{ display: 'none' }}>
           {form.getFieldDecorator('parentId', {
             initialValue: formVals.parentId,
           })(<Input />)}

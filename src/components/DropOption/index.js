@@ -1,26 +1,17 @@
-import React from 'react'
-import { Dropdown, Button, Icon, Menu } from 'antd'
+import React from 'react';
+import { BarsOutlined, DownOutlined } from '@ant-design/icons';
+import { Dropdown, Button, Menu } from 'antd';
 
-const DropOption = ({
-  onMenuClick,
-  menuOptions = [],
-  buttonStyle,
-  dropdownProps,
-}) => {
-  const menu = menuOptions.map(item => (
-    <Menu.Item key={item.key}>{item.name}</Menu.Item>
-  ))
+const DropOption = ({ onMenuClick, menuOptions = [], buttonStyle, dropdownProps }) => {
+  const menu = menuOptions.map((item) => <Menu.Item key={item.key}>{item.name}</Menu.Item>);
   return (
-    <Dropdown
-      overlay={<Menu onClick={onMenuClick}>{menu}</Menu>}
-      {...dropdownProps}
-    >
+    <Dropdown overlay={<Menu onClick={onMenuClick}>{menu}</Menu>} {...dropdownProps}>
       <Button type="primary" style={{ border: 'none', ...buttonStyle }}>
-        <Icon style={{ marginRight: 2 }} type="bars" />
-        <Icon type="down" />
+        <BarsOutlined style={{ marginRight: 2 }} />
+        <DownOutlined />
       </Button>
     </Dropdown>
-  )
-}
+  );
+};
 
-export default DropOption
+export default DropOption;

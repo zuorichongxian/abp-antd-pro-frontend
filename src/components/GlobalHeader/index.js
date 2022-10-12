@@ -1,7 +1,7 @@
-import { Icon } from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
 import Debounce from 'lodash-decorators/debounce';
 import { PureComponent } from 'react';
-import {Link} from 'umi';
+import { Link } from 'umi';
 import styles from './index.less';
 import RightContent from './RightContent';
 
@@ -32,7 +32,7 @@ export default class GlobalHeader extends PureComponent {
           </Link>
         )}
         <span className={styles.trigger} onClick={this.toggle}>
-          <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
+          <LegacyIcon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
         </span>
         <RightContent {...this.props} />
       </div>

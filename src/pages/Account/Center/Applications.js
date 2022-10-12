@@ -1,5 +1,11 @@
 import React, { PureComponent } from 'react';
-import { List, Card, Icon, Dropdown, Menu, Avatar, Tooltip } from 'antd';
+import {
+  DownloadOutlined,
+  EditOutlined,
+  EllipsisOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
+import { List, Card, Dropdown, Menu, Avatar, Tooltip } from 'antd';
 import numeral from 'numeral';
 import { connect } from 'dva';
 import { formatWan } from '@/utils/utils';
@@ -50,23 +56,23 @@ class Center extends PureComponent {
         className={stylesApplications.filterCardList}
         grid={{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
         dataSource={list}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item key={item.id}>
             <Card
               hoverable
               bodyStyle={{ paddingBottom: 20 }}
               actions={[
                 <Tooltip title="下载">
-                  <Icon type="download" />
+                  <DownloadOutlined />
                 </Tooltip>,
                 <Tooltip title="编辑">
-                  <Icon type="edit" />
+                  <EditOutlined />
                 </Tooltip>,
                 <Tooltip title="分享">
-                  <Icon type="share-alt" />
+                  <ShareAltOutlined />
                 </Tooltip>,
                 <Dropdown overlay={itemMenu}>
-                  <Icon type="ellipsis" />
+                  <EllipsisOutlined />
                 </Dropdown>,
               ]}
             >

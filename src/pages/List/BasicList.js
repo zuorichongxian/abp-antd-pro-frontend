@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
 import { connect } from 'dva';
+import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import {
   List,
   Card,
@@ -11,12 +14,10 @@ import {
   Input,
   Progress,
   Button,
-  Icon,
   Dropdown,
   Menu,
   Avatar,
   Modal,
-  Form,
   DatePicker,
   Select,
 } from 'antd';
@@ -62,7 +63,7 @@ class BasicList extends PureComponent {
     });
   };
 
-  showEditModal = item => {
+  showEditModal = (item) => {
     this.setState({
       visible: true,
       current: item,
@@ -84,7 +85,7 @@ class BasicList extends PureComponent {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { dispatch, form } = this.props;
     const { current } = this.state;
@@ -103,7 +104,7 @@ class BasicList extends PureComponent {
     });
   };
 
-  deleteItem = id => {
+  deleteItem = (id) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'list/submit',
@@ -180,7 +181,7 @@ class BasicList extends PureComponent {
       </div>
     );
 
-    const MoreBtn = props => (
+    const MoreBtn = (props) => (
       <Dropdown
         overlay={
           <Menu onClick={({ key }) => editAndDelete(key, props.current)}>
@@ -190,7 +191,7 @@ class BasicList extends PureComponent {
         }
       >
         <a>
-          更多 <Icon type="down" />
+          更多 <DownOutlined />
         </a>
       </Dropdown>
     );
@@ -229,7 +230,7 @@ class BasicList extends PureComponent {
                 placeholder="请选择"
                 format="YYYY-MM-DD HH:mm:ss"
                 style={{ width: '100%' }}
-              />
+              />,
             )}
           </FormItem>
           <FormItem label="任务负责人" {...this.formLayout}>
@@ -240,7 +241,7 @@ class BasicList extends PureComponent {
               <Select placeholder="请选择">
                 <SelectOption value="付晓晓">付晓晓</SelectOption>
                 <SelectOption value="周毛毛">周毛毛</SelectOption>
-              </Select>
+              </Select>,
             )}
           </FormItem>
           <FormItem {...this.formLayout} label="产品描述">
@@ -280,9 +281,9 @@ class BasicList extends PureComponent {
             <Button
               type="dashed"
               style={{ width: '100%', marginBottom: 8 }}
-              icon="plus"
+              icon={<PlusOutlined />}
               onClick={this.showModal}
-              ref={component => {
+              ref={(component) => {
                 /* eslint-disable */
                 this.addBtn = findDOMNode(component);
                 /* eslint-enable */
@@ -296,11 +297,11 @@ class BasicList extends PureComponent {
               loading={loading}
               pagination={paginationProps}
               dataSource={list}
-              renderItem={item => (
+              renderItem={(item) => (
                 <List.Item
                   actions={[
                     <a
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault();
                         this.showEditModal(item);
                       }}

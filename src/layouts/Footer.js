@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Layout, Icon } from 'antd';
+import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import GlobalFooter from '@/components/GlobalFooter';
 
 const { Footer } = Layout;
@@ -15,7 +16,7 @@ const FooterView = () => (
         },
         {
           key: 'github',
-          title: <Icon type="github" />,
+          title: <GithubOutlined />,
           href: 'https://github.com/ant-design/ant-design-pro',
           blankTarget: true,
         },
@@ -28,7 +29,7 @@ const FooterView = () => (
       ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> 2018 黄河水利科学研究院
+          Copyright <CopyrightOutlined /> 2018 黄河水利科学研究院
         </Fragment>
       }
     />

@@ -1,73 +1,72 @@
 import React from 'react';
-import { Card, Form, Input,Button } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Card, Input, Button } from 'antd';
 import { withPropsAPI } from 'gg-editor';
 
 const { Item } = Form;
 
 const inlineFormItemLayout = {
-    labelCol: {
-        sm: { span: 6 },
-    },
-    wrapperCol: {
-        sm: { span: 18 },
-    },
+  labelCol: {
+    sm: { span: 6 },
+  },
+  wrapperCol: {
+    sm: { span: 18 },
+  },
 };
 
 class CanvasDetail extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    const { form, propsAPI } = this.props;
+    const { getSelected, executeCommand, update } = propsAPI;
 
-        const { form, propsAPI } = this.props;
-        const { getSelected, executeCommand, update } = propsAPI;
+    form.validateFieldsAndScroll((err, values) => {
+      if (err) {
+        return;
+      }
 
-        form.validateFieldsAndScroll((err, values) => {
-            if (err) {
-                return;
-            }
+      const item = getSelected()[0];
 
-            const item = getSelected()[0];
+      if (!item) {
+        return;
+      }
 
-            if (!item) {
-                return;
-            }
-
-            executeCommand(() => {
-                update(item, {
-                    ...values,
-                });
-            });
+      executeCommand(() => {
+        update(item, {
+          ...values,
         });
-    }
+      });
+    });
+  };
 
-    handleClick = () => {
-        const { propsAPI } = this.props;
-        console.log(propsAPI.save());
-    };
+  handleClick = () => {
+    const { propsAPI } = this.props;
+    console.log(propsAPI.save());
+  };
 
-    render() {
-        const { form, propsAPI } = this.props;
-        const { getFieldDecorator } = form;
-        const { getSelected } = propsAPI;
+  render() {
+    const { form, propsAPI } = this.props;
+    const { getFieldDecorator } = form;
+    const { getSelected } = propsAPI;
 
-        return (
-            <Card type="inner" title="流程属性" bordered={false}>
-                <Form onSubmit={this.handleSubmit}>
-                    <Item
-                        label="名称"
-                        {...inlineFormItemLayout}
-                    >
-                        {
-                            getFieldDecorator('label', {
-                                initialValue: "新建流程",
-                            })(<Input onBlur={this.handleSubmit} />)
-                        }
-                    </Item>
-                </Form>
-                <Button type="primary" size='small' icon='save' onClick={this.handleClick}>保存</Button>
-            </Card>
-        );
-    }
+    return (
+      <Card type="inner" title="流程属性" bordered={false}>
+        <Form onSubmit={this.handleSubmit}>
+          <Item label="名称" {...inlineFormItemLayout}>
+            {getFieldDecorator('label', {
+              initialValue: '新建流程',
+            })(<Input onBlur={this.handleSubmit} />)}
+          </Item>
+        </Form>
+        <Button type="primary" size="small" icon={<SaveOutlined />} onClick={this.handleClick}>
+          保存
+        </Button>
+      </Card>
+    );
+  }
 }
 
 export default Form.create()(withPropsAPI(CanvasDetail));

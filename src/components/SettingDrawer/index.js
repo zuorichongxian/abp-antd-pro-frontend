@@ -1,4 +1,6 @@
-import { Alert, Button, Divider, Drawer, Icon, List, message, Select, Switch, Tooltip } from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { CopyOutlined } from '@ant-design/icons';
+import { Alert, Button, Divider, Drawer, List, message, Select, Switch, Tooltip } from 'antd';
 import { connect } from 'dva';
 import omit from 'omit.js';
 import React, { PureComponent } from 'react';
@@ -39,7 +41,7 @@ class SettingDrawer extends PureComponent {
           <Select
             value={contentWidth}
             size="small"
-            onSelect={value => this.changeSetting('contentWidth', value)}
+            onSelect={(value) => this.changeSetting('contentWidth', value)}
             style={{ width: 80 }}
           >
             {layout === 'sidemenu' ? null : (
@@ -59,7 +61,7 @@ class SettingDrawer extends PureComponent {
           <Switch
             size="small"
             checked={!!fixedHeader}
-            onChange={checked => this.changeSetting('fixedHeader', checked)}
+            onChange={(checked) => this.changeSetting('fixedHeader', checked)}
           />
         ),
       },
@@ -71,7 +73,7 @@ class SettingDrawer extends PureComponent {
           <Switch
             size="small"
             checked={!!autoHideHeader}
-            onChange={checked => this.changeSetting('autoHideHeader', checked)}
+            onChange={(checked) => this.changeSetting('autoHideHeader', checked)}
           />
         ),
       },
@@ -83,7 +85,7 @@ class SettingDrawer extends PureComponent {
           <Switch
             size="small"
             checked={!!fixSiderbar}
-            onChange={checked => this.changeSetting('fixSiderbar', checked)}
+            onChange={(checked) => this.changeSetting('fixSiderbar', checked)}
           />
         ),
       },
@@ -113,7 +115,7 @@ class SettingDrawer extends PureComponent {
     this.setState({ collapse: !collapse });
   };
 
-  renderLayoutSettingItem = item => {
+  renderLayoutSettingItem = (item) => {
     const action = React.cloneElement(item.action, {
       disabled: item.disabled,
     });
@@ -138,7 +140,7 @@ class SettingDrawer extends PureComponent {
         placement="right"
         handler={
           <div className={styles.handle}>
-            <Icon
+            <LegacyIcon
               type={collapse ? 'close' : 'setting'}
               style={{
                 color: '#fff',
@@ -168,14 +170,14 @@ class SettingDrawer extends PureComponent {
                 },
               ]}
               value={navTheme}
-              onChange={value => this.changeSetting('navTheme', value)}
+              onChange={(value) => this.changeSetting('navTheme', value)}
             />
           </Body>
 
           <ThemeColor
             title={formatMessage({ id: 'app.setting.themecolor' })}
             value={primaryColor}
-            onChange={color => this.changeSetting('primaryColor', color)}
+            onChange={(color) => this.changeSetting('primaryColor', color)}
           />
 
           <Divider />
@@ -195,7 +197,7 @@ class SettingDrawer extends PureComponent {
                 },
               ]}
               value={layout}
-              onChange={value => this.changeSetting('layout', value)}
+              onChange={(value) => this.changeSetting('layout', value)}
             />
           </Body>
 
@@ -213,7 +215,7 @@ class SettingDrawer extends PureComponent {
                 <Switch
                   size="small"
                   checked={!!colorWeak}
-                  onChange={checked => this.changeSetting('colorWeak', checked)}
+                  onChange={(checked) => this.changeSetting('colorWeak', checked)}
                 />,
               ]}
             >
@@ -225,7 +227,7 @@ class SettingDrawer extends PureComponent {
             text={JSON.stringify(omit(setting, ['colorWeak']), null, 2)}
             onCopy={() => message.success(formatMessage({ id: 'app.setting.copyinfo' }))}
           >
-            <Button block icon="copy">
+            <Button block icon={<CopyOutlined />}>
               {formatMessage({ id: 'app.setting.copy' })}
             </Button>
           </CopyToClipboard>

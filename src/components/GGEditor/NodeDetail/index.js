@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Form, Input } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Card, Input } from 'antd';
 import { withPropsAPI } from 'gg-editor';
 
 const { Item } = Form;
@@ -37,7 +39,7 @@ class NodeDetail extends React.Component {
         });
       });
     });
-  }
+  };
 
   render() {
     const { form, propsAPI } = this.props;
@@ -55,15 +57,10 @@ class NodeDetail extends React.Component {
     return (
       <Card type="inner" title="节点属性" bordered={false}>
         <Form onSubmit={this.handleSubmit}>
-          <Item
-            label="标签"
-            {...inlineFormItemLayout}
-          >
-            {
-              getFieldDecorator('label', {
-                initialValue: label,
-              })(<Input onBlur={this.handleSubmit} />)
-            }
+          <Item label="标签" {...inlineFormItemLayout}>
+            {getFieldDecorator('label', {
+              initialValue: label,
+            })(<Input onBlur={this.handleSubmit} />)}
           </Item>
         </Form>
       </Card>

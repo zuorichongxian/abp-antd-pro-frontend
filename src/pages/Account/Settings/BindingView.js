@@ -1,4 +1,5 @@
-import { Icon, List } from 'antd';
+import { AlipayOutlined, DingdingOutlined, TaobaoOutlined } from '@ant-design/icons';
+import { List } from 'antd';
 import { Component, Fragment } from 'react';
 import { formatMessage, FormattedMessage } from 'umi';
 
@@ -12,7 +13,7 @@ class BindingView extends Component {
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />
         </a>,
       ],
-      avatar: <Icon type="taobao" className="taobao" />,
+      avatar: <TaobaoOutlined className="taobao" />,
     },
     {
       title: formatMessage({ id: 'app.settings.binding.alipay' }, {}),
@@ -22,7 +23,7 @@ class BindingView extends Component {
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />
         </a>,
       ],
-      avatar: <Icon type="alipay" className="alipay" />,
+      avatar: <AlipayOutlined className="alipay" />,
     },
     {
       title: formatMessage({ id: 'app.settings.binding.dingding' }, {}),
@@ -32,7 +33,7 @@ class BindingView extends Component {
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />
         </a>,
       ],
-      avatar: <Icon type="dingding" className="dingding" />,
+      avatar: <DingdingOutlined className="dingding" />,
     },
   ];
 
@@ -42,7 +43,7 @@ class BindingView extends Component {
         <List
           itemLayout="horizontal"
           dataSource={this.getData()}
-          renderItem={item => (
+          renderItem={(item) => (
             <List.Item actions={item.actions}>
               <List.Item.Meta
                 avatar={item.avatar}

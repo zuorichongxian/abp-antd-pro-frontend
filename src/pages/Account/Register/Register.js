@@ -1,7 +1,9 @@
-import { Button, Col, Form, Input, Popover, Progress, Row, Select } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Col, Input, Popover, Progress, Row, Select } from 'antd';
 import { connect } from 'dva';
 import { Component } from 'react';
-import  { formatMessage, FormattedMessage,Link } from 'umi';
+import { formatMessage, FormattedMessage, Link } from 'umi';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
@@ -87,7 +89,7 @@ class Register extends Component {
     return 'poor';
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { form, dispatch } = this.props;
     form.validateFields({ force: true }, (err, values) => {
@@ -104,7 +106,7 @@ class Register extends Component {
     });
   };
 
-  handleConfirmBlur = e => {
+  handleConfirmBlur = (e) => {
     const { value } = e.target;
     const { confirmDirty } = this.state;
     this.setState({ confirmDirty: confirmDirty || !!value });
@@ -148,7 +150,7 @@ class Register extends Component {
     }
   };
 
-  changePrefix = value => {
+  changePrefix = (value) => {
     this.setState({
       prefix: value,
     });
@@ -194,12 +196,12 @@ class Register extends Component {
                 },
               ],
             })(
-              <Input size="large" placeholder={formatMessage({ id: 'form.email.placeholder' })} />
+              <Input size="large" placeholder={formatMessage({ id: 'form.email.placeholder' })} />,
             )}
           </FormItem>
           <FormItem help={help}>
             <Popover
-              getPopupContainer={node => node.parentNode}
+              getPopupContainer={(node) => node.parentNode}
               content={
                 <div style={{ padding: '4px 0' }}>
                   {passwordStatusMap[this.getPasswordStatus()]}
@@ -224,7 +226,7 @@ class Register extends Component {
                   size="large"
                   type="password"
                   placeholder={formatMessage({ id: 'form.password.placeholder' })}
-                />
+                />,
               )}
             </Popover>
           </FormItem>
@@ -244,7 +246,7 @@ class Register extends Component {
                 size="large"
                 type="password"
                 placeholder={formatMessage({ id: 'form.confirm-password.placeholder' })}
-              />
+              />,
             )}
           </FormItem>
           <FormItem>
@@ -274,7 +276,7 @@ class Register extends Component {
                   size="large"
                   style={{ width: '80%' }}
                   placeholder={formatMessage({ id: 'form.phone-number.placeholder' })}
-                />
+                />,
               )}
             </InputGroup>
           </FormItem>
@@ -292,7 +294,7 @@ class Register extends Component {
                   <Input
                     size="large"
                     placeholder={formatMessage({ id: 'form.verification-code.placeholder' })}
-                  />
+                  />,
                 )}
               </Col>
               <Col span={8}>

@@ -1,4 +1,12 @@
-import { Avatar, Icon, Menu, Spin, Tag, Tooltip } from 'antd';
+import {
+  CloseCircleOutlined,
+  LogoutOutlined,
+  QuestionCircleOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+
+import { Avatar, Menu, Spin, Tag, Tooltip } from 'antd';
 import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 import { PureComponent } from 'react';
@@ -15,7 +23,7 @@ export default class GlobalHeaderRight extends PureComponent {
     if (notices.length === 0) {
       return {};
     }
-    const newNotices = notices.map(notice => {
+    const newNotices = notices.map((notice) => {
       const newNotice = { ...notice };
       if (newNotice.datetime) {
         newNotice.datetime = moment(notice.datetime).fromNow();
@@ -41,20 +49,20 @@ export default class GlobalHeaderRight extends PureComponent {
     return groupBy(newNotices, 'type');
   }
 
-  getUnreadData = noticeData => {
+  getUnreadData = (noticeData) => {
     const unreadMsg = {};
     Object.entries(noticeData).forEach(([key, value]) => {
       if (!unreadMsg[key]) {
         unreadMsg[key] = 0;
       }
       if (Array.isArray(value)) {
-        unreadMsg[key] = value.filter(item => !item.read).length;
+        unreadMsg[key] = value.filter((item) => !item.read).length;
       }
     });
     return unreadMsg;
   };
 
-  changeReadState = clickedItem => {
+  changeReadState = (clickedItem) => {
     const { id } = clickedItem;
     const { dispatch } = this.props;
     dispatch({
@@ -63,7 +71,7 @@ export default class GlobalHeaderRight extends PureComponent {
     });
   };
 
-  fetchMoreNotices = tabProps => {
+  fetchMoreNotices = (tabProps) => {
     const { list, name } = tabProps;
     const { dispatch, notices = [] } = this.props;
     const lastItemId = notices[notices.length - 1].id;
@@ -92,20 +100,20 @@ export default class GlobalHeaderRight extends PureComponent {
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
         <Menu.Item key="userCenter">
-          <Icon type="user" />
+          <UserOutlined />
           <FormattedMessage id="menu.account.center" defaultMessage="account center" />
         </Menu.Item>
         <Menu.Item key="userinfo">
-          <Icon type="setting" />
+          <SettingOutlined />
           <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
         </Menu.Item>
         <Menu.Item key="triggerError">
-          <Icon type="close-circle" />
+          <CloseCircleOutlined />
           <FormattedMessage id="menu.account.trigger" defaultMessage="Trigger Error" />
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout">
-          <Icon type="logout" />
+          <LogoutOutlined />
           <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
         </Menu.Item>
       </Menu>
@@ -145,12 +153,12 @@ export default class GlobalHeaderRight extends PureComponent {
             rel="noopener noreferrer"
             className={styles.action}
           >
-            <Icon type="question-circle-o" />
+            <QuestionCircleOutlined />
           </a>
         </Tooltip>
         <NoticeIcon
           className={styles.action}
-          count='12'
+          count="12"
           onItemClick={(item, tabProps) => {
             console.log(item, tabProps); // eslint-disable-line
             this.changeReadState(item, tabProps);
@@ -201,15 +209,19 @@ export default class GlobalHeaderRight extends PureComponent {
               <Avatar
                 size="small"
                 className={styles.avatar}
-                src={currentUser.profilePictureId != null ? currentUser.profilePictureId : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'}
+                src={
+                  currentUser.profilePictureId != null
+                    ? currentUser.profilePictureId
+                    : 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'
+                }
                 alt="avatar"
               />
               <span className={styles.name}>{currentUser.name}</span>
             </span>
           </HeaderDropdown>
         ) : (
-            <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
-          )}
+          <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
+        )}
         {/* <SelectLang className={styles.action} /> */}
       </div>
     );

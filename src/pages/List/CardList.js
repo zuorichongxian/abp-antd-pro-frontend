@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, List } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Card, Button, List } from 'antd';
 
 import Ellipsis from '@/components/Ellipsis';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -68,7 +69,7 @@ class CardList extends PureComponent {
             loading={loading}
             grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
             dataSource={['', ...list]}
-            renderItem={item =>
+            renderItem={(item) =>
               item ? (
                 <List.Item key={item.id}>
                   <Card hoverable className={styles.card} actions={[<a>操作一</a>, <a>操作二</a>]}>
@@ -86,7 +87,7 @@ class CardList extends PureComponent {
               ) : (
                 <List.Item>
                   <Button type="dashed" className={styles.newButton}>
-                    <Icon type="plus" /> 新增产品
+                    <PlusOutlined /> 新增产品
                   </Button>
                 </List.Item>
               )

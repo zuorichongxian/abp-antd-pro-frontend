@@ -1,8 +1,7 @@
 import GlobalFooter from '@/components/GlobalFooter';
-// import SelectLang from '@/components/SelectLang';
-import { Icon } from 'antd';
+import { CopyrightOutlined } from '@ant-design/icons';
 import React, { Fragment } from 'react';
-import  { formatMessage ,Link} from 'umi';
+import { formatMessage, Link } from 'umi';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
@@ -26,7 +25,7 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+    Copyright <CopyrightOutlined /> 2018 蚂蚁金服体验技术部出品
   </Fragment>
 );
 
@@ -56,9 +55,7 @@ class UserLayout extends React.PureComponent {
     return (
       // @TODO <DocumentTitle title={this.getPageTitle()}>
       <div className={styles.container}>
-        <div className={styles.lang}>
-          {/* <SelectLang /> */}
-        </div>
+        <div className={styles.lang}>{/* <SelectLang /> */}</div>
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>

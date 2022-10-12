@@ -2,16 +2,16 @@ import Login from '@/components/Login';
 import { Alert, Checkbox } from 'antd';
 import { connect } from 'dva';
 import { Component } from 'react';
-import  { FormattedMessage,Link } from 'umi';
+import { FormattedMessage, Link } from 'umi';
 import styles from './Login.less';
 import Test from './test.tsx';
 //
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
-@connect(({ login, loading }) => ({
-  login,
-  submitting: loading.effects['login/authenticate'],
-}))
+// @connect(({ login, loading }) => ({
+//   login,
+//   submitting: loading.effects['login/authenticate'],
+// }))
 class LoginPage extends Component {
   state = {
     type: 'account',
@@ -61,20 +61,15 @@ class LoginPage extends Component {
   };
 
   renderMessage = (content) => (
-    <Alert
-      style={{ marginBottom: 24 }}
-      message={content}
-      type="error"
-      showIcon
-    />
+    <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
   );
 
   render() {
     const { login, submitting } = this.props;
     const { type, rememberClient } = this.state;
     return (
-      <div className={styles.main} >
-        <Test/>
+      <div className={styles.main}>
+        <Test />
         <Login
           defaultActiveKey={type}
           onTabChange={this.onTabChange}
@@ -84,10 +79,10 @@ class LoginPage extends Component {
           }}
         >
           <Tab key="account" tab="账户密码登录">
-            {login.status === 'error' &&
+            {/* {login.status === 'error' &&
               login.type === 'account' &&
               !submitting &&
-              this.renderMessage('账户或密码错误')}
+              this.renderMessage('账户或密码错误')} */}
             <UserName
               name="userNameOrEmailAddress"
               placeholder="用户名或邮箱"
@@ -107,16 +102,14 @@ class LoginPage extends Component {
                   message: '请输入密码！',
                 },
               ]}
-              onPressEnter={() =>
-                this.loginForm.validateFields(this.handleSubmit)
-              }
+              onPressEnter={() => this.loginForm.validateFields(this.handleSubmit)}
             />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
-            {login.status === 'error' &&
+            {/* {login.status === 'error' &&
               login.type === 'mobile' &&
               !submitting &&
-              this.renderMessage('验证码错误')}
+              this.renderMessage('验证码错误')} */}
             <Mobile
               name="mobile"
               placeholder="手机号"

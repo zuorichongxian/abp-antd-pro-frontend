@@ -1,7 +1,8 @@
 import { MiniArea } from '@/components/Charts';
 import NumberInfo from '@/components/NumberInfo';
 import Trend from '@/components/Trend';
-import { Card, Col, Icon, Row, Table, Tooltip } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Table, Tooltip } from 'antd';
 import numeral from 'numeral';
 import { memo } from 'react';
 import { FormattedMessage } from 'umi';
@@ -19,7 +20,7 @@ const columns = [
     ),
     dataIndex: 'keyword',
     key: 'keyword',
-    render: text => <a href="/">{text}</a>,
+    render: (text) => <a href="/">{text}</a>,
   },
   {
     title: <FormattedMessage id="app.analysis.table.users" defaultMessage="Users" />,
@@ -61,7 +62,7 @@ const TopSearch = memo(({ loading, visitData2, searchData, dropdownGroup }) => (
               <Tooltip
                 title={<FormattedMessage id="app.analysis.introduce" defaultMessage="introduce" />}
               >
-                <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
+                <InfoCircleOutlined style={{ marginLeft: 8 }} />
               </Tooltip>
             </span>
           }
@@ -83,7 +84,7 @@ const TopSearch = memo(({ loading, visitData2, searchData, dropdownGroup }) => (
               <Tooltip
                 title={<FormattedMessage id="app.analysis.introduce" defaultMessage="introduce" />}
               >
-                <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
+                <InfoCircleOutlined style={{ marginLeft: 8 }} />
               </Tooltip>
             </span>
           }
@@ -96,7 +97,7 @@ const TopSearch = memo(({ loading, visitData2, searchData, dropdownGroup }) => (
       </Col>
     </Row>
     <Table
-      rowKey={record => record.index}
+      rowKey={(record) => record.index}
       size="small"
       columns={columns}
       dataSource={searchData}

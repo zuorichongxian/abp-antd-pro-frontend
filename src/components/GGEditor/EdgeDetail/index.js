@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Form, Input, Select } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Card, Input, Select } from 'antd';
 import { withPropsAPI } from 'gg-editor';
 
 const { Item } = Form;
@@ -38,7 +40,7 @@ class EdgeDetail extends React.Component {
         });
       });
     }, 0);
-  }
+  };
 
   renderShapeSelect() {
     return (
@@ -66,25 +68,15 @@ class EdgeDetail extends React.Component {
     return (
       <Card type="inner" title="边线属性" bordered={false}>
         <Form onSubmit={this.handleSubmit}>
-          <Item
-            label="标签"
-            {...inlineFormItemLayout}
-          >
-            {
-              getFieldDecorator('label', {
-                initialValue: label,
-              })(<Input onBlur={this.handleSubmit} />)
-            }
+          <Item label="标签" {...inlineFormItemLayout}>
+            {getFieldDecorator('label', {
+              initialValue: label,
+            })(<Input onBlur={this.handleSubmit} />)}
           </Item>
-          <Item
-            label="图形"
-            {...inlineFormItemLayout}
-          >
-            {
-              getFieldDecorator('shape', {
-                initialValue: shape,
-              })(this.renderShapeSelect())
-            }
+          <Item label="图形" {...inlineFormItemLayout}>
+            {getFieldDecorator('shape', {
+              initialValue: shape,
+            })(this.renderShapeSelect())}
           </Item>
         </Form>
       </Card>
