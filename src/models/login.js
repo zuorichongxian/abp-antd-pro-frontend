@@ -7,7 +7,7 @@ import { reloadAuthorized } from '@/utils/Authorized';
 import { GetAll, getCurrentLoginInformation } from '@/services/sessionStore';
 import appconst from '@/utils/appconst';
 import { fakeAccountLogin } from '@/services/tokenAuth';
-import globalService from '@/utils/GlobalServices'
+import globalService from '@/utils/GlobalServices';
 
 export default {
   namespace: 'login',
@@ -19,8 +19,9 @@ export default {
   effects: {
     //登录认证
     *authenticate({ payload }, { call, put }) {
+      console.log('authenticate', payload);
       //判断登录方式
-      if (payload.type === "account") {
+      if (payload.type === 'account') {
         const response = yield call(fakeAccountLogin, payload);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -42,7 +43,7 @@ export default {
         if (response != null && response.success) {
           // 是否要求重置密码
           if (response.result.shouldResetPassword) {
-            console.log("需重置密码");
+            console.log('需重置密码');
           }
           // 双重认证
           else if (response.result.requiresTwoFactorVerification) {
@@ -58,27 +59,36 @@ export default {
                 expireInSeconds: response.result.expireInSeconds,
                 rememberMe: payload.rememberClient,
                 twoFactorRememberClientToken: response.result.twoFactorRememberClientToken,
-                redirectUrl: redirect
-              }
+                redirectUrl: redirect,
+              },
             });
           }
           //登录失败
           else {
-            console.log("登录失败");
+            console.log('登录失败');
           }
         }
-      }
-      else {
-        console.log("手机验证码登录");
+      } else {
+        console.log('手机验证码登录');
       }
     },
     *login({ payload }, { call, put }) {
-      var tokenExpireDate = payload.rememberMe ? new Date(new Date().getTime() + 1000 * payload.expireInSeconds) : undefined;
+      var tokenExpireDate = payload.rememberMe
+        ? new Date(new Date().getTime() + 1000 * payload.expireInSeconds)
+        : undefined;
       globalService.auth.setToken(payload.accessToken, tokenExpireDate);
-      globalService.cookie.setCookieValue(appconst.authorization.encrptedAuthTokenName, payload.encryptedAccessToken, tokenExpireDate, "/");
+      globalService.cookie.setCookieValue(
+        appconst.authorization.encrptedAuthTokenName,
+        payload.encryptedAccessToken,
+        tokenExpireDate,
+        '/',
+      );
       const getAllResponse = yield call(GetAll);
       if (getAllResponse != null && getAllResponse.success) {
-        globalService.auth.setAuthority(appconst.authorization.grantedAuthorityName, getAllResponse.result.auth.grantedPermissions);
+        globalService.auth.setAuthority(
+          appconst.authorization.grantedAuthorityName,
+          getAllResponse.result.auth.grantedPermissions,
+        );
       }
       const getSessionStore = yield call(getCurrentLoginInformation);
       if (getSessionStore != null && getSessionStore.success) {
@@ -106,7 +116,7 @@ export default {
           search: stringify({
             redirect: window.location.href,
           }),
-        })
+        }),
       );
     },
   },
@@ -116,7 +126,7 @@ export default {
       return {
         ...state,
         status: payload != null ? payload.success : false,
-        type: "account",
+        type: 'account',
       };
     },
   },

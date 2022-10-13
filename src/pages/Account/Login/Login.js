@@ -8,10 +8,10 @@ import Test from './test.tsx';
 //
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
-// @connect(({ login, loading }) => ({
-//   login,
-//   submitting: loading.effects['login/authenticate'],
-// }))
+@connect(({ login, loading }) => ({
+  login,
+  submitting: loading.effects['login/authenticate'],
+}))
 class LoginPage extends Component {
   state = {
     type: 'account',
@@ -40,6 +40,7 @@ class LoginPage extends Component {
     });
 
   handleSubmit = (err, values) => {
+    console.log('handleSubmit', err, values);
     const { type, rememberClient } = this.state;
     if (!err) {
       const { dispatch } = this.props;
