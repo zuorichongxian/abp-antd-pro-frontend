@@ -20,6 +20,7 @@ import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import styles from './index.less';
 import { useDispatch } from 'dva';
+import { Home } from '@icon-park/react';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -97,6 +98,8 @@ const Login: React.FC = () => {
         {SelectLang && <SelectLang />}
       </div>
       <div className={styles.content}>
+        <Home />
+        <Home theme="filled" />
         <LoginForm
           logo={<img alt="logo" src="/logo.svg" />}
           title="Ant Design"
