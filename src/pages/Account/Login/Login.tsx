@@ -21,7 +21,8 @@ import React, { useState } from 'react';
 import styles from './index.less';
 import { useDispatch } from 'dva';
 import { Home } from '@icon-park/react';
-
+console.log(REACT_APP_ENV);
+console.log(API_URL);
 const LoginMessage: React.FC<{
   content: string;
 }> = ({ content }) => {
