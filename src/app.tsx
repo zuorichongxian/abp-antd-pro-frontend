@@ -56,11 +56,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
+      console.log('onPageChange');
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
+      //   if (!initialState?.currentUser && location.pathname !== loginPath) {
+      //     console.log("history.push(loginPath);")
+      //     history.push(loginPath);
+      //   }
     },
     layoutBgImgList: [
       {

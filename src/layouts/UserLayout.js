@@ -1,9 +1,10 @@
 import GlobalFooter from '@/components/GlobalFooter';
 import { CopyrightOutlined } from '@ant-design/icons';
 import React, { Fragment } from 'react';
-import { formatMessage, Link } from 'umi';
+import { formatMessage, Link, getDvaApp } from 'umi';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
+import { Outlet } from 'umi';
 
 const links = [
   {
@@ -42,12 +43,18 @@ class UserLayout extends React.PureComponent {
   // }
 
   componentDidMount() {
-    window.g_app._store.dispatch({
+    getDvaApp()._store.dispatch({
       type: 'global/GetAll',
     });
-    window.g_app._store.dispatch({
+    getDvaApp()._store.dispatch({
       type: 'global/getCurrentLoginInformations',
     });
+    // window.g_app._store.dispatch({
+    //   type: 'global/GetAll',
+    // });
+    // window.g_app._store.dispatch({
+    //   type: 'global/getCurrentLoginInformations',
+    // });
   }
 
   render() {
@@ -55,7 +62,7 @@ class UserLayout extends React.PureComponent {
     return (
       // @TODO <DocumentTitle title={this.getPageTitle()}>
       <div className={styles.container}>
-        <div className={styles.lang}>{/* <SelectLang /> */}</div>
+        <div className={styles.lang}>{/* <SelectLang /> */}123</div>
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>
@@ -66,9 +73,10 @@ class UserLayout extends React.PureComponent {
             </div>
             <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
           </div>
-          {children}
+          {/* {children} */}
+          <Outlet />
         </div>
-        <GlobalFooter links={links} copyright={copyright} />
+        {/* <GlobalFooter links={links} copyright={copyright} /> */}
       </div>
     );
   }

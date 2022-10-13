@@ -18,6 +18,7 @@ import Header from './Header';
 import Context from './MenuContext';
 
 import styles from './BasicLayout.less';
+import { Outlet } from 'umi';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -94,14 +95,14 @@ class BasicLayout extends React.PureComponent {
   }
 
   matchParamsPath = (pathname, breadcrumbNameMap) => {
-    const pathKey = Object.keys(breadcrumbNameMap).find(key => pathToRegexp(key).test(pathname));
+    const pathKey = Object.keys(breadcrumbNameMap).find((key) => pathToRegexp(key).test(pathname));
     return breadcrumbNameMap[pathKey];
   };
 
   getRouterAuthority = (pathname, routeData) => {
     let routeAuthority = ['noAuthority'];
     const getAuthority = (key, routes) => {
-      routes.map(route => {
+      routes.map((route) => {
         if (route.path && pathToRegexp(route.path).test(key)) {
           routeAuthority = route.authority;
         } else if (route.routes) {
@@ -138,7 +139,7 @@ class BasicLayout extends React.PureComponent {
     return null;
   };
 
-  handleMenuCollapse = collapsed => {
+  handleMenuCollapse = (collapsed) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'global/changeLayoutCollapsed',
@@ -198,7 +199,8 @@ class BasicLayout extends React.PureComponent {
           />
           <Content className={styles.content} style={contentStyle}>
             <Authorized authority={routerConfig} noMatch={<Exception403 />}>
-              {children}
+              {/* {children} */}
+              <Outlet />
             </Authorized>
           </Content>
           {/* <Footer /> */}
@@ -210,7 +212,7 @@ class BasicLayout extends React.PureComponent {
       <React.Fragment>
         <DocumentTitle title={this.getPageTitle(pathname, breadcrumbNameMap)}>
           <ContainerQuery query={query}>
-            {params => (
+            {(params) => (
               <Context.Provider value={this.getContext()}>
                 <div className={classNames(params)}>{layout}</div>
               </Context.Provider>
@@ -229,8 +231,8 @@ export default connect(({ global, setting, menu }) => ({
   menuData: menu.menuData,
   breadcrumbNameMap: menu.breadcrumbNameMap,
   ...setting,
-}))(props => (
+}))((props) => (
   <Media query="(max-width: 599px)">
-    {isMobile => <BasicLayout {...props} isMobile={isMobile} />}
+    {(isMobile) => <BasicLayout {...props} isMobile={isMobile} />}
   </Media>
 ));

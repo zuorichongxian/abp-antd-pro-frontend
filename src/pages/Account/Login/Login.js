@@ -80,10 +80,10 @@ class LoginPage extends Component {
           }}
         >
           <Tab key="account" tab="账户密码登录">
-            {/* {login.status === 'error' &&
+            {login.status === 'error' &&
               login.type === 'account' &&
               !submitting &&
-              this.renderMessage('账户或密码错误')} */}
+              this.renderMessage('账户或密码错误')}
             <UserName
               name="userNameOrEmailAddress"
               placeholder="用户名或邮箱"
@@ -107,10 +107,10 @@ class LoginPage extends Component {
             />
           </Tab>
           <Tab key="mobile" tab="手机号登录">
-            {/* {login.status === 'error' &&
+            {login.status === 'error' &&
               login.type === 'mobile' &&
               !submitting &&
-              this.renderMessage('验证码错误')} */}
+              this.renderMessage('验证码错误')}
             <Mobile
               name="mobile"
               placeholder="手机号"
@@ -152,7 +152,7 @@ class LoginPage extends Component {
             <FormattedMessage id="app.login.login" />
           </Submit>
           <div className={styles.other}>
-            <Link className={styles.register} to="/accounts/register">
+            <Link className={styles.register} to="/user/register">
               <FormattedMessage id="app.login.signup" />
             </Link>
           </div>
