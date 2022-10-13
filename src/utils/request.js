@@ -5,6 +5,7 @@ import fetch from 'dva/fetch';
 import hash from 'hash.js';
 import globalService from './GlobalServices';
 import { isAntdPro } from './utils';
+import { getDvaApp } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -32,6 +33,7 @@ const checkStatus = (response) => {
       if (response.ok) {
         return json;
       } else {
+        console.log('error', json);
         const errortext = codeMessage[response.status] || response.statusText;
         const error = new Error(errortext);
         if (json.success == false) {
@@ -153,11 +155,16 @@ export default function request(url, option, parameter) {
       return response.json();
     })
     .catch((e) => {
+      console.log(e);
+      notification.error({
+        message: `请求失败`,
+        description: '测试',
+      });
       const status = e.name;
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */
-        window.g_app._store.dispatch({
+        getDvaApp()._store.dispatch({
           type: 'login/logout',
         });
         return;

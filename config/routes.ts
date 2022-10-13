@@ -22,11 +22,11 @@ export default [
   },
   {
     path: '/user',
-    component: '../layouts/UserLayout',
-    // layout: false,
+    // component: '../layouts/UserLayout',
+    layout: false,
     routes: [
       //   { path: '/user', redirect: '/Account/Login/login' },
-      { path: '/user/login', component: './Account/Login/Login' },
+      { path: '/user/login', component: './Account/Login/Login.tsx' },
 
       { path: '/user/register', component: './Account/Register/Register' },
       { path: '/user/register-result', component: './Account/RegisterResult/RegisterResult' },
