@@ -114,7 +114,7 @@ const Login: React.FC = () => {
             <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon} />,
             <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon} />,
           ]}
-          onFinish={async (values) => {
+          onFinish={async (values: API.LoginParams) => {
             await handleSubmit(values as API.LoginParams);
           }}
         >
