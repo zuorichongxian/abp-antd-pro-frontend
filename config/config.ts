@@ -15,7 +15,7 @@ export default defineConfig({
    */
   hash: true,
   dva: {},
-  mfsu: false,
+  //   mfsu: false,
 
   /**
    * @name 兼容性设置
