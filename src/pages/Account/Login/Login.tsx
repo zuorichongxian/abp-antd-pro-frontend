@@ -287,15 +287,16 @@ const Login: React.FC = () => {
             <ProFormCheckbox noStyle name="autoLogin">
               <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
             </ProFormCheckbox>
+
+            <Link to="/user/register">
+              <FormattedMessage id="pages.login.register" defaultMessage="注册" />
+            </Link>
+
             <a
               style={{
                 float: 'right',
               }}
             >
-              <Link to="/user/register">
-                <FormattedMessage id="pages.login.register" defaultMessage="注册" />
-              </Link>
-
               <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
             </a>
           </div>
