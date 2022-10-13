@@ -1,5 +1,7 @@
 import { notification } from 'antd';
 import fetch from 'dva/fetch';
+// import fetch from 'fetch';
+// import { fetch } from 'dva';
 import hash from 'hash.js';
 import globalService from './GlobalServices';
 import { isAntdPro } from './utils';
@@ -22,35 +24,32 @@ const codeMessage = {
   504: '网关超时。',
 };
 
-const checkStatus = response => {
-  if (response.status >= 200 && response.status < 300)
-    return response;
-  else if (response.status == 401)
-    return history.push('/accounts/login');
+const checkStatus = (response) => {
+  if (response.status >= 200 && response.status < 300) return response;
+  else if (response.status == 401) return history.push('/accounts/login');
   else
-    return response.json()
-      .then(json => {
-        if (response.ok) {
-          return json
+    return response.json().then((json) => {
+      if (response.ok) {
+        return json;
+      } else {
+        const errortext = codeMessage[response.status] || response.statusText;
+        const error = new Error(errortext);
+        if (json.success == false) {
+          notification.error({
+            message: `${json.error.message}`,
+            description: json.error.details,
+          });
         } else {
-          const errortext = codeMessage[response.status] || response.statusText;
-          const error = new Error(errortext);
-          if (json.success == false) {
-            notification.error({
-              message: `${json.error.message}`,
-              description: json.error.details,
-            });
-          } else {
-            notification.error({
-              message: `请求错误 ${response.status}: ${response.url}`,
-              description: errortext,
-            });
-            error.name = response.status;
-          }
-          error.response = response;
-          throw error;
+          notification.error({
+            message: `请求错误 ${response.status}: ${response.url}`,
+            description: errortext,
+          });
+          error.name = response.status;
         }
-      })
+        error.response = response;
+        throw error;
+      }
+    });
 };
 
 const cachedSave = (response, hashcode) => {
@@ -64,7 +63,7 @@ const cachedSave = (response, hashcode) => {
     response
       .clone()
       .text()
-      .then(content => {
+      .then((content) => {
         sessionStorage.setItem(hashcode, content);
         sessionStorage.setItem(`${hashcode}:timestamp`, Date.now());
       });
@@ -85,22 +84,24 @@ export default function request(url, option, parameter) {
     ...option,
   };
   if (parameter) {
-    url += "?";
+    url += '?';
     for (var item in parameter) {
-      if (item !== undefined && parameter[item] !== null && parameter[item] !== ""&& parameter[item] !== undefined)
-        url += item + "=" + encodeURIComponent("" + parameter[item]) + "&";
+      if (
+        item !== undefined &&
+        parameter[item] !== null &&
+        parameter[item] !== '' &&
+        parameter[item] !== undefined
+      )
+        url += item + '=' + encodeURIComponent('' + parameter[item]) + '&';
     }
-    url = url.replace(/[?&]$/, "");
+    url = url.replace(/[?&]$/, '');
   }
   /**
    * 根据网址和参数生成指纹
    * 也许url具有相同的参数
    */
   const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
-  const hashcode = hash
-    .sha256()
-    .update(fingerprint)
-    .digest('hex');
+  const hashcode = hash.sha256().update(fingerprint).digest('hex');
 
   const defaultOptions = {
     credentials: 'include',
@@ -111,14 +112,14 @@ export default function request(url, option, parameter) {
   if (!(newOptions.body instanceof FormData)) {
     newOptions.headers = {
       Accept: 'application/json',
-      'Authorization': token,
+      Authorization: token,
       'Content-Type': 'application/json; charset=utf-8',
       ...newOptions.headers,
     };
     newOptions.body = JSON.stringify(newOptions.body);
   } else {
     newOptions.headers = {
-      'Authorization': token,
+      Authorization: token,
       Accept: 'application/json',
       ...newOptions.headers,
     };
@@ -142,8 +143,8 @@ export default function request(url, option, parameter) {
 
   return fetch(url, newOptions)
     .then(checkStatus)
-    .then(response => cachedSave(response, hashcode))
-    .then(response => {
+    .then((response) => cachedSave(response, hashcode))
+    .then((response) => {
       // DELETE and 204 do not return data by default
       // using .json will report an error.
       if (newOptions.method === 'DELETE' || response.status === 204) {
@@ -151,7 +152,7 @@ export default function request(url, option, parameter) {
       }
       return response.json();
     })
-    .catch(e => {
+    .catch((e) => {
       const status = e.name;
       if (status === 401) {
         // @HACK

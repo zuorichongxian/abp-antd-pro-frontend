@@ -14,6 +14,8 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#hash
    */
   hash: true,
+  dva: {},
+  mfsu: false,
 
   /**
    * @name 兼容性设置
