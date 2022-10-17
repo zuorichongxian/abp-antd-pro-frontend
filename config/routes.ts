@@ -35,8 +35,10 @@ export default [
   // app
   {
     path: '/',
-    component: '../layouts/BasicLayout',
-    Routes: ['src/pages/Authorized'],
+    // component: '../layouts/BasicLayout',
+    name: '首页',
+    icon: 'crown',
+
     routes: [
       // dashboard
       { path: '/', redirect: '/analysis' },

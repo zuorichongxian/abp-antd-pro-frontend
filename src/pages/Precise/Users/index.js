@@ -18,14 +18,14 @@ const ButtonGroup = Button.Group;
 class Cars extends Component {
   render() {
     const { location, dispatch, users, loading } = this.props;
-    const { query, pathname } = location;
+    // const {  pathname } = location;
 
     const { list, pagination, userSelectedRowKeys } = users;
 
     //处理刷新
     const handleRefresh = (newQuery) => {
       router.replace({
-        pathname,
+        // pathname,
         search: stringify(newQuery, { arrayFormat: 'repeat' }),
       });
     };
